@@ -33,8 +33,6 @@
 
 All records are written to plain text files, so data **persists between runs** with no database required.
 
-> Developed as an Object-Oriented Programming course project by **Section B, CS 2025-2029**.
-
 ---
 
 ## Features
@@ -326,9 +324,8 @@ Contributions are welcome.
 
 ---
 
-## Authors
+## Author
 
-**Section B, CS 2025-2029**
 
 | Name | GitHub |
 |---|---|
