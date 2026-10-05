@@ -1,5 +1,3 @@
-<!-- Replace YOUR_USERNAME and the repository name (e-voting-management-system) before publishing -->
-
 <div align="center">
 
 <img src="https://capsule-render.vercel.app/api?type=waving&height=230&color=0:0a2a5e,100:14438f&text=E-Voting%20Management%20System&fontColor=8fd3f4&fontSize=42&fontAlignY=36&desc=Console-based%20election%20system%20built%20with%20Object-Oriented%20C%2B%2B&descSize=17&descAlignY=58&animation=fadeIn" alt="E-Voting Management System banner" width="100%"/>
@@ -16,14 +14,14 @@
 ![License](https://img.shields.io/badge/License-MIT-ff7a1a?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Stable-2ea44f?style=for-the-badge)
 
-![Stars](https://img.shields.io/github/stars/YOUR_USERNAME/e-voting-management-system?style=flat-square&color=ff7a1a)
-![Forks](https://img.shields.io/github/forks/YOUR_USERNAME/e-voting-management-system?style=flat-square&color=14438f)
-![Issues](https://img.shields.io/github/issues/YOUR_USERNAME/e-voting-management-system?style=flat-square&color=8fd3f4)
-![Last commit](https://img.shields.io/github/last-commit/YOUR_USERNAME/e-voting-management-system?style=flat-square&color=0a2a5e)
-![Repo size](https://img.shields.io/github/repo-size/YOUR_USERNAME/e-voting-management-system?style=flat-square&color=ff7a1a)
-![Top language](https://img.shields.io/github/languages/top/YOUR_USERNAME/e-voting-management-system?style=flat-square&color=14438f)
+![Stars](https://img.shields.io/github/stars/Laiba-Wajid/E-voting?style=flat-square&color=ff7a1a)
+![Forks](https://img.shields.io/github/forks/Laiba-Wajid/E-voting?style=flat-square&color=14438f)
+![Issues](https://img.shields.io/github/issues/Laiba-Wajid/E-voting?style=flat-square&color=8fd3f4)
+![Last commit](https://img.shields.io/github/last-commit/Laiba-Wajid/E-voting?style=flat-square&color=0a2a5e)
+![Repo size](https://img.shields.io/github/repo-size/Laiba-Wajid/E-voting?style=flat-square&color=ff7a1a)
+![Top language](https://img.shields.io/github/languages/top/Laiba-Wajid/E-voting?style=flat-square&color=14438f)
 
-**[Features](#features) · [Quick Start](#quick-start) · [Usage](#usage) · [Architecture](#architecture) · [Roadmap](#roadmap) · [Contributing](#contributing)**
+*[Features](#features) · [Quick Start](#quick-start) · [Usage](#usage) · [Architecture](#architecture) · [Roadmap](#roadmap) · [Contributing](#contributing)*
 
 </div>
 
@@ -31,11 +29,10 @@
 
 ## Overview
 
-**E-Voting Management System** is a menu-driven C++ application that simulates a small election end to end. Voters register with a validated CNIC, candidates are managed through the system, every voter can cast **exactly one vote**, and the results (vote counts, percentages and winner) are calculated instantly.
+*E-Voting Management System* is a menu-driven C++ application that simulates a small election end to end. Voters register with a validated CNIC, candidates are managed through the system, every voter can cast *exactly one vote*, and the results (vote counts, percentages and winner) are calculated instantly.
 
-All records are written to plain text files, so data **persists between runs** with no database required.
+All records are written to plain text files, so data *persists between runs* with no database required.
 
-> Developed as an Object-Oriented Programming course project by **Section B, CS 2025-2029**.
 
 ---
 
@@ -43,15 +40,15 @@ All records are written to plain text files, so data **persists between runs** w
 
 | Module | Capability |
 |---|---|
-| **Voter registration** | Full name, 13-digit CNIC and age with complete validation (18+ only) |
-| **Vote integrity** | A CNIC that has already voted is blocked from voting again |
-| **Voter directory** | Tabular list of all voters with their voting status |
-| **Voter search** | Instant lookup by CNIC |
-| **Candidate management** | Add candidates with a unique ID and political party |
-| **Results engine** | Votes, percentage share, total votes and winner |
-| **Persistence** | Automatic save and load using `voters.txt` and `candidates.txt` |
-| **Input safety** | Handles invalid numbers, malformed CNICs and duplicate IDs |
-| **Seed data** | Three sample candidates are created on first launch |
+| *Voter registration* | Full name, 13-digit CNIC and age with complete validation (18+ only) |
+| *Vote integrity* | A CNIC that has already voted is blocked from voting again |
+| *Voter directory* | Tabular list of all voters with their voting status |
+| *Voter search* | Instant lookup by CNIC |
+| *Candidate management* | Add candidates with a unique ID and political party |
+| *Results engine* | Votes, percentage share, total votes and winner |
+| *Persistence* | Automatic save and load using voters.txt and candidates.txt |
+| *Input safety* | Handles invalid numbers, malformed CNICs and duplicate IDs |
+| *Seed data* | Three sample candidates are created on first launch |
 
 ---
 
@@ -66,7 +63,7 @@ All records are written to plain text files, so data **persists between runs** w
 | Area | Details |
 |---|---|
 | Language | C++11 or later |
-| Libraries | `iostream`, `fstream`, `vector`, `string`, `iomanip`, `limits`, `stdexcept` |
+| Libraries | iostream, fstream, vector, string, iomanip, limits, stdexcept |
 | Storage | Pipe-separated text files |
 | Paradigm | Object-Oriented Programming |
 
@@ -76,39 +73,55 @@ All records are written to plain text files, so data **persists between runs** w
 
 ### Prerequisites
 
-- A C++11-compatible compiler: **g++**, **clang++** or **MSVC**
+- A C++11-compatible compiler: *g++, **clang++* or *MSVC*
 - Git (optional)
 
 ### Clone
 
-```bash
-git clone https://github.com/YOUR_USERNAME/e-voting-management-system.git
-cd e-voting-management-system
-```
+bash
+git clone https://github.com/Laiba-Wajid/E-voting.git
+cd E-voting
 
-### Build
 
-```bash
-g++ -std=c++11 main.cpp -o evoting
-```
+### Build and run
 
-### Run
+*Linux / macOS*
 
-```bash
-# Linux / macOS
-./evoting
+bash
+g++ -std=c++11 main.cpp -o E-voting
+./E-voting
 
-# Windows
-evoting.exe
-```
 
-> **Note:** Run the program from the same folder each time. `voters.txt` and `candidates.txt` are created in the working directory.
+*Windows (PowerShell or Command Prompt with MinGW)*
+
+powershell
+g++ -std=c++11 main.cpp -o E-voting.exe
+.\E-voting.exe
+
+
+*Using an IDE:* open main.cpp in Code::Blocks, Dev-C++, Visual Studio or VS Code and press *Build and Run*.
+
+> *Note:* Run the program from the same folder each time. voters.txt and candidates.txt are created in the working directory.
+
+---
+
+## Web Version
+
+The repository also includes a browser-based version of the same system: *E-Voting Management System.html*.
+
+Download the file and open it in any modern browser. No installation or server is needed.
+
+- Ballot-paper style voting screen with one vote per CNIC
+- Voter registration, voter search and candidate management
+- Live results with animated bars, turnout and winner card
+- Sky blue, navy and orange theme with smooth animations
+- Data is stored in the browser (localStorage), separately from the C++ text files
 
 ---
 
 ## Usage
 
-```text
+text
 ====================================================
              E-VOTING MANAGEMENT SYSTEM
 ====================================================
@@ -125,27 +138,27 @@ evoting.exe
 8. Exit
 
 Enter your choice:
-```
 
-**Typical workflow**
 
-1. Register voters (option `1`).
-2. Add candidates (option `3`) or use the default ones.
-3. Cast votes (option `5`) using the voter CNIC and a candidate ID.
-4. View the results (option `7`).
+*Typical workflow*
 
-**Default candidates**
+1. Register voters (option 1).
+2. Add candidates (option 3) or use the default ones.
+3. Cast votes (option 5) using the voter CNIC and a candidate ID.
+4. View the results (option 7).
+
+*Default candidates*
 
 | ID | Name | Party |
 |---|---|---|
-| `C001` | Ali Khan | Unity Party |
-| `C002` | Ahmed Raza | People Party |
-| `C003` | Sara Malik | Progress Party |
+| C001 | Ali Khan | Unity Party |
+| C002 | Ahmed Raza | People Party |
+| C003 | Sara Malik | Progress Party |
 
 <details>
 <summary><b>Sample output: election results</b></summary>
 
-```text
+text
 ================ ELECTION RESULTS ================
 Candidate           Party               Votes     Percentage
 --------------------------------------------------------------
@@ -156,7 +169,7 @@ Sara Malik          Progress Party      1         25.00%
 Total Votes: 4
 
 Winner: Ali Khan (Unity Party)
-```
+
 
 </details>
 
@@ -165,13 +178,13 @@ Winner: Ali Khan (Unity Party)
 
 | Condition | Message |
 |---|---|
-| CNIC is not exactly 13 digits | `Invalid CNIC! CNIC must contain exactly 13 digits.` |
-| CNIC already registered | `A voter with this CNIC already exists.` |
-| Age below 18 | `Voter must be 18 or above.` |
-| CNIC not registered when voting | `Voter not found! Please register first.` |
-| Voter has already voted | `You have already cast your vote.` |
-| Unknown candidate ID | `Invalid candidate ID.` |
-| Duplicate candidate ID | `Candidate ID already exists.` |
+| CNIC is not exactly 13 digits | Invalid CNIC! CNIC must contain exactly 13 digits. |
+| CNIC already registered | A voter with this CNIC already exists. |
+| Age below 18 | Voter must be 18 or above. |
+| CNIC not registered when voting | Voter not found! Please register first. |
+| Voter has already voted | You have already cast your vote. |
+| Unknown candidate ID | Invalid candidate ID. |
+| Duplicate candidate ID | Candidate ID already exists. |
 
 </details>
 
@@ -182,7 +195,7 @@ Winner: Ali Khan (Unity Party)
 <details open>
 <summary><b>Class diagram</b></summary>
 
-```mermaid
+mermaid
 classDiagram
     class Person {
         #string name
@@ -222,60 +235,61 @@ classDiagram
     Person <|-- Candidate
     ElectionSystem o-- Voter
     ElectionSystem o-- Candidate
-```
+
 
 </details>
 
-**OOP concepts demonstrated**
+*OOP concepts demonstrated*
 
 | Concept | Implementation |
 |---|---|
-| Inheritance | `Voter` and `Candidate` derive from `Person` |
-| Polymorphism | `virtual display()` overridden in both derived classes |
-| Encapsulation | `private` / `protected` members exposed through getters |
-| Abstraction | `ElectionSystem` hides validation and file handling |
-| Composition | `ElectionSystem` owns `vector<Voter>` and `vector<Candidate>` |
-| Virtual destructor | `~Person()` is virtual for safe cleanup |
+| Inheritance | Voter and Candidate derive from Person |
+| Polymorphism | virtual display() overridden in both derived classes |
+| Encapsulation | private / protected members exposed through getters |
+| Abstraction | ElectionSystem hides validation and file handling |
+| Composition | ElectionSystem owns vector<Voter> and vector<Candidate> |
+| Virtual destructor | ~Person() is virtual for safe cleanup |
 | Constructor overloading | Default and parameterized constructors |
-| File handling | `ifstream` / `ofstream` for persistence |
-| Exception handling | `try / catch` around `stoi()` when loading files |
+| File handling | ifstream / ofstream for persistence |
+| Exception handling | try / catch around stoi() when loading files |
 
-**Data format**
+*Data format*
 
-```text
+text
 voters.txt       name|cnic|age|hasVoted
 candidates.txt   name|cnic|party|votes
-```
+
 
 ---
 
 ## Project Structure
 
-```text
-e-voting-management-system/
-├── main.cpp            Source code
-├── voters.txt          Generated at runtime
-├── candidates.txt      Generated at runtime
-├── .gitignore
-├── LICENSE
-└── README.md
-```
+text
+E-voting/
+├── main.cpp                                        C++ console application
+├── E-Voting Management System.html                 Browser-based version
+├── E_Voting_Management_System_Project_Report.pdf   Project report
+├── LICENSE                                         MIT License
+├── README.md
+├── voters.txt                                      Generated at runtime
+└── candidates.txt                                  Generated at runtime
 
-Recommended `.gitignore`:
 
-```gitignore
-evoting
-evoting.exe
+Recommended .gitignore:
+
+gitignore
+E-voting
+E-voting.exe
 *.o
 voters.txt
 candidates.txt
-```
+
 
 ---
 
 ## Known Limitations
 
-- Names and party names must not contain the `|` character, since it is the file separator.
+- Names and party names must not contain the | character, since it is the file separator.
 - In a tie, the first candidate with the highest vote count is shown as winner.
 - The main menu expects a number; text input there is not handled.
 - Data is stored as plain text, without encryption or admin authentication.
@@ -304,30 +318,30 @@ candidates.txt
 Contributions are welcome.
 
 1. Fork the repository
-2. Create a branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m "Add your feature"`
-4. Push the branch: `git push origin feature/your-feature`
+2. Create a branch: git checkout -b feature/your-feature
+3. Commit your changes: git commit -m "Add your feature"
+4. Push the branch: git push origin feature/your-feature
 5. Open a Pull Request
 
 ---
 
 ## Authors
 
-**Section B, CS 2025-2029**
+
 
 | Name | GitHub |
 |---|---|
-| Your Name | [@YOUR_USERNAME](https://github.com/YOUR_USERNAME) |
+| Laiba Wajid | [@Laiba-Wajid](https://github.com/Laiba-Wajid) |
 
 ---
 
 ## License
 
-Distributed under the **MIT License**. See the `LICENSE` file for details.
+Distributed under the *MIT License*. See the LICENSE file for details.
 
 <div align="center">
 
-**If this project helped you, consider giving it a star.**
+*If this project helped you, consider giving it a star.*
 
 <img src="https://capsule-render.vercel.app/api?type=waving&section=footer&height=130&color=0:0a2a5e,100:ff7a1a" alt="footer" width="100%"/>
 
