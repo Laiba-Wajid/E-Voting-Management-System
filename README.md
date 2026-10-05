@@ -326,7 +326,6 @@ Contributions are welcome.
 
 ## Author
 
-
 | Name | GitHub |
 |---|---|
 | Laiba Wajid | [@Laiba-Wajid](https://github.com/Laiba-Wajid) |
