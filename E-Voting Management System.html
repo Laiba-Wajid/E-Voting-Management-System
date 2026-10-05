@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-Voting Management System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+:root{--navy:#0a2a5e;--navy2:#14438f;--sky:#8fd3f4;--skyl:#e8f6fd;--orange:#ff7a1a;--orange2:#e5640a;--white:#fff;--mute:#4f6890;--line:#cfe3f1;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,var(--skyl),#f7fcff 60%);min-height:100vh;color:var(--navy);font:16px/1.55 "Source Sans 3",system-ui,sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:18px 16px 48px}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;margin:0;line-height:1.15}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes drop{0%{transform:translateY(-8px);opacity:0}15%{opacity:1}65%,100%{transform:translateY(58px)}85%,100%{opacity:0}}
+@keyframes pop{0%{transform:scale(.3) rotate(-20deg);opacity:0}60%{transform:scale(1.15) rotate(-8deg);opacity:1}100%{transform:scale(1) rotate(-8deg);opacity:1}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,122,26,.5)}50%{box-shadow:0 0 0 10px rgba(255,122,26,0)}}
+header{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:var(--white);border-radius:18px;padding:30px 28px;margin-bottom:18px}
+header::before,header::after{content:"";position:absolute;border-radius:50%;animation:float 7s ease-in-out infinite}
+header::before{width:180px;height:180px;background:var(--sky);opacity:.18;right:-40px;top:-60px}
+header::after{width:90px;height:90px;background:var(--orange);opacity:.35;left:42%;bottom:-40px;animation-delay:-3s}
+header>*{position:relative;z-index:1;animation:rise .7s both}
+header .txt{animation-delay:.05s}header .hero-art{animation-delay:.25s}
+header h1{font-size:clamp(28px,6vw,44px);font-weight:800}
+header p{margin:10px 0 0;color:var(--sky);max-width:46ch}
+.hero-art{width:140px;flex:none}
+.hero-art .slip{animation:drop 3s ease-in infinite}
+@media(max-width:560px){.hero-art{width:90px}header{padding:22px 18px}}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:5px;margin-bottom:20px}
+nav button{flex:1;background:none;border:0;border-radius:8px;padding:10px 14px;font:600 15px "Source Sans 3",sans-serif;color:var(--mute);cursor:pointer;white-space:nowrap;transition:background .25s,color .25s,transform .15s}
+nav button:hover{background:var(--skyl);color:var(--navy)}
+nav button[aria-selected="true"]{background:var(--navy);color:var(--white)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:0 8px 24px rgba(10,42,94,.07);animation:rise .45s both}
+.panel h2{font-size:24px;margin-bottom:14px;padding-left:12px;border-left:5px solid var(--orange)}
+label{display:block;font-weight:600;margin:14px 0 4px}
+input{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:8px;background:var(--skyl);color:var(--navy);font:inherit;transition:border-color .2s,background .2s,box-shadow .2s}
+input:focus{border-color:var(--sky);background:var(--white);box-shadow:0 0 0 4px rgba(143,211,244,.45);outline:none}
+.btn{margin-top:18px;background:var(--orange);color:var(--white);border:0;border-radius:8px;padding:12px 22px;font:700 16px "Source Sans 3",sans-serif;cursor:pointer;transition:transform .15s,background .2s,box-shadow .2s}
+.btn:hover{background:var(--orange2);transform:translateY(-2px);box-shadow:0 8px 16px rgba(255,122,26,.35)}
+.btn:active{transform:scale(.96)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.msg{margin-top:14px;padding:11px 14px;border-radius:8px;font-weight:600;animation:rise .35s both}
+.msg.ok{background:var(--skyl);color:var(--navy);border-left:5px solid var(--sky)}
+.msg.err{background:#fff0e3;color:#a33f00;border-left:5px solid var(--orange)}
+.stamp{display:inline-block;margin-top:16px;border:4px solid var(--orange);color:var(--orange);border-radius:10px;padding:6px 20px;font:800 28px "Bricolage Grotesque",sans-serif;letter-spacing:2px;transform:rotate(-8deg);animation:pop .6s cubic-bezier(.2,.9,.3,1.2) both}
+.tbl{width:100%;border-collapse:collapse;display:block;overflow-x:auto}
+.tbl th,.tbl td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl th{color:var(--white);background:var(--navy);font-weight:600;font-size:14px}
+.tbl tr:not(:first-child){animation:fade .5s both}
+.tbl tr:not(:first-child):hover td{background:var(--skyl)}
+.tag{display:inline-block;padding:2px 12px;border-radius:99px;font-size:13px;font-weight:700;background:var(--orange);color:var(--white)}
+.tag.no{background:var(--skyl);color:var(--mute)}
+.ballot{border:2px solid var(--navy);border-radius:10px;margin-top:18px;overflow:hidden;animation:rise .4s both}
+.ballot-head{padding:12px 16px;background:var(--navy);color:var(--white);font:700 18px "Bricolage Grotesque",sans-serif;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ballot-head span+span{color:var(--sky);font-weight:600}
+.ballot-row{display:flex;align-items:center;gap:16px;padding:14px 16px;border:0;border-bottom:1px solid var(--line);width:100%;background:var(--white);text-align:left;color:var(--navy);font:inherit;cursor:pointer;transition:background .2s,padding-left .25s;animation:rise .45s both}
+.ballot-row:last-child{border-bottom:0}
+.ballot-row:hover{background:var(--skyl);padding-left:24px}
+.box{width:48px;height:48px;border:3px solid var(--navy);border-radius:50%;flex:none;display:grid;place-items:center;font:800 11px "Bricolage Grotesque",sans-serif;color:var(--navy);transition:all .25s}
+.ballot-row:hover .box{border-color:var(--orange);background:var(--orange);color:var(--white);animation:pulse 1.2s infinite}
+.ballot-row b{display:block;font-size:18px}.ballot-row span{color:var(--mute)}
+.bar{height:12px;background:var(--skyl);border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sky),var(--navy2));border-radius:99px;transform-origin:left;animation:grow 1s cubic-bezier(.2,.8,.2,1) both}
+.res:first-of-type .bar i{background:linear-gradient(90deg,var(--orange),#ffb067)}
+.res{margin:16px 0;animation:rise .5s both}.res .top{display:flex;justify-content:space-between;gap:10px;font-weight:600}
+.winner{margin-top:22px;padding:18px;border-radius:12px;background:var(--navy);color:var(--white);border-bottom:6px solid var(--orange);animation:winpop .7s cubic-bezier(.2,.9,.3,1.2) both}
+.winner h3{font-size:22px;color:var(--sky)}
+@keyframes winpop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.06);opacity:1}100%{transform:scale(1);opacity:1}}
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.stats div{flex:1;min-width:120px;font-size:14px;color:var(--mute);background:var(--skyl);border-radius:12px;padding:12px 16px}
+.stats b{display:block;font:800 30px "Bricolage Grotesque",sans-serif;color:var(--navy)}
+.foot{margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--mute);font-size:14px}
+.foot button{background:none;border:0;color:var(--orange2);font:600 14px "Source Sans 3",sans-serif;cursor:pointer;text-decoration:underline}
+.hidden{display:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="txt">
+  <h1>E-Voting Management System</h1>
+  <p>Register voters, add candidates, cast one vote per CNIC and see live results.</p>
+ </div>
+ <svg class="hero-art" viewBox="0 0 160 140" aria-hidden="true">
+  <g class="slip"><rect x="62" y="0" width="36" height="46" rx="3" fill="#fff"/><path d="M70 14h20M70 24h20" stroke="#8fd3f4" stroke-width="3" stroke-linecap="round"/><path d="M72 36l5 5 10-11" stroke="#ff7a1a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <rect x="20" y="62" width="120" height="70" rx="8" fill="#8fd3f4"/>
+  <rect x="20" y="62" width="120" height="14" rx="6" fill="#fff" opacity=".4"/>
+  <rect x="50" y="58" width="60" height="9" rx="4" fill="#0a2a5e"/>
+  <circle cx="80" cy="104" r="15" fill="#ff7a1a"/><path d="M73 104l5 5 9-10" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>
+</header>
+
+<nav role="tablist" id="tabs">
+ <button role="tab" data-t="vote" aria-selected="true">Cast vote</button>
+ <button role="tab" data-t="register" aria-selected="false">Register voter</button>
+ <button role="tab" data-t="voters" aria-selected="false">Voters</button>
+ <button role="tab" data-t="cands" aria-selected="false">Candidates</button>
+ <button role="tab" data-t="results" aria-selected="false">Results</button>
+</nav>
+
+<section id="vote" class="panel">
+ <h2>Cast your vote</h2>
+ <label for="vCnic">Your 13-digit CNIC</label>
+ <input id="vCnic" inputmode="numeric" maxlength="13" placeholder="3520212345671" autocomplete="off">
+ <button class="btn" id="vGo">Show ballot</button>
+ <div id="vMsg" role="status"></div>
+ <div id="ballot"></div>
+</section>
+
+<section id="register" class="panel hidden">
+ <h2>Register as a voter</h2>
+ <label for="rName">Full name</label><input id="rName" autocomplete="off">
+ <div class="row">
+  <div><label for="rCnic">13-digit CNIC</label><input id="rCnic" inputmode="numeric" maxlength="13" autocomplete="off"></div>
+  <div><label for="rAge">Age</label><input id="rAge" type="number" min="1" max="120"></div>
+ </div>
+ <button class="btn" id="rGo">Register voter</button>
+ <div id="rMsg" role="status"></div>
+</section>
+
+<section id="voters" class="panel hidden">
+ <h2>Registered voters</h2>
+ <label for="sCnic">Search by CNIC</label>
+ <input id="sCnic" inputmode="numeric" placeholder="Type a CNIC to filter" autocomplete="off">
+ <div id="vList" style="margin-top:14px"></div>
+</section>
+
+<section id="cands" class="hidden">
+ <div class="panel" style="margin-bottom:18px">
+  <h2>Candidates</h2>
+  <div id="cList"></div>
+ </div>
+ <div class="panel">
+  <h2>Add a candidate</h2>
+  <label for="cName">Candidate name</label><input id="cName" autocomplete="off">
+  <div class="row">
+   <div><label for="cId">Candidate ID</label><input id="cId" placeholder="C004" autocomplete="off"></div>
+   <div><label for="cParty">Political party</label><input id="cParty" autocomplete="off"></div>
+  </div>
+  <button class="btn" id="cGo">Add candidate</button>
+  <div id="cMsg" role="status"></div>
+ </div>
+</section>
+
+<section id="results" class="panel hidden">
+ <h2>Election results</h2>
+ <div id="resBody"></div>
+</section>
+
+<div class="foot">
+ <span>Data is saved in this browser only.</span>
+ <button id="reset">Reset all data</button>
+</div>
+</div>
+
+<script>
+(function(){
+var KEY="evoting-v1";
+var DEFAULTS=[{name:"Ali Khan",id:"C001",party:"Unity Party",votes:0},{name:"Ahmed Raza",id:"C002",party:"People Party",votes:0},{name:"Sara Malik",id:"C003",party:"Progress Party",votes:0}];
+var S={voters:[],cands:JSON.parse(JSON.stringify(DEFAULTS))};
+try{var raw=localStorage.getItem(KEY);if(raw){var p=JSON.parse(raw);if(p&&p.voters&&p.cands)S=p;}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function validCnic(c){return /^\d{13}$/.test(c)}
+function findV(c){return S.voters.findIndex(function(v){return v.cnic===c})}
+function findC(id){return S.cands.findIndex(function(c){return c.id.toLowerCase()===id.toLowerCase()})}
+function msg(el,text,ok){el.innerHTML='<div class="msg '+(ok?'ok':'err')+'">'+esc(text)+'</div>'}
+
+// Tabs
+var tabs=document.querySelectorAll("#tabs button");
+function show(t){
+ tabs.forEach(function(b){b.setAttribute("aria-selected",b.dataset.t===t)});
+ ["vote","register","voters","cands","results"].forEach(function(s){$(s).classList.toggle("hidden",s!==t)});
+ render();
+}
+tabs.forEach(function(b){b.addEventListener("click",function(){show(b.dataset.t)})});
+
+// Register
+$("rGo").onclick=function(){
+ var name=$("rName").value.trim(),cnic=$("rCnic").value.trim(),age=parseInt($("rAge").value,10),m=$("rMsg");
+ if(!name)return msg(m,"Enter your full name.");
+ if(!validCnic(cnic))return msg(m,"CNIC must contain exactly 13 digits.");
+ if(findV(cnic)!==-1)return msg(m,"A voter with this CNIC already exists.");
+ if(isNaN(age))return msg(m,"Enter your age.");
+ if(age<18)return msg(m,"Voter must be 18 or above.");
+ S.voters.push({name:name,cnic:cnic,age:age,voted:false});save();
+ msg(m,"Voter registered successfully. You can now cast your vote.",true);
+ $("rName").value=$("rCnic").value=$("rAge").value="";
+};
+
+// Cast vote
+var current=null;
+$("vGo").onclick=function(){
+ var cnic=$("vCnic").value.trim(),m=$("vMsg");$("ballot").innerHTML="";current=null;
+ if(!validCnic(cnic))return msg(m,"Enter a valid 13-digit CNIC.");
+ var i=findV(cnic);
+ if(i===-1)return msg(m,"Voter not found. Register first in the Register voter tab.");
+ if(S.voters[i].voted)return msg(m,"You have already cast your vote.");
+ current=cnic;m.innerHTML="";
+ var h='<div class="ballot"><div class="ballot-head"><span>Ballot paper</span><span style="font-weight:600;color:var(--mute)">'+esc(S.voters[i].name)+'</span></div>';
+ S.cands.forEach(function(c,i){h+='<button class="ballot-row" style="animation-delay:'+(120+i*90)+'ms" data-id="'+esc(c.id)+'"><span class="box">VOTE</span><div><b>'+esc(c.name)+'</b><span>'+esc(c.party)+' (ID '+esc(c.id)+')</span></div></button>'});
+ $("ballot").innerHTML=h+'</div>';
+};
+$("ballot").addEventListener("click",function(e){
+ var b=e.target.closest(".ballot-row");if(!b||!current)return;
+ var vi=findV(current),ci=findC(b.dataset.id);
+ if(vi===-1||ci===-1||S.voters[vi].voted)return;
+ S.cands[ci].votes++;S.voters[vi].voted=true;save();
+ $("ballot").innerHTML="";$("vCnic").value="";current=null;
+ msg($("vMsg"),"Vote cast successfully. Thank you for voting.",true);$("vMsg").innerHTML+='<div class="stamp">VOTED</div>';
+});
+
+// Voters list
+function renderVoters(){
+ var q=$("sCnic").value.trim(),list=S.voters.filter(function(v){return !q||v.cnic.indexOf(q)!==-1});
+ if(!S.voters.length){$("vList").innerHTML="<p>No voters registered yet. Use the Register voter tab to add one.</p>";return}
+ if(!list.length){$("vList").innerHTML="<p>No voter matches that CNIC.</p>";return}
+ var h='<table class="tbl"><tr><th>Name</th><th>CNIC</th><th>Age</th><th>Status</th></tr>';
+ list.forEach(function(v){h+='<tr><td>'+esc(v.name)+'</td><td>'+esc(v.cnic)+'</td><td>'+v.age+'</td><td><span class="tag '+(v.voted?'':'no')+'">'+(v.voted?'Voted':'Not voted')+'</span></td></tr>'});
+ $("vList").innerHTML=h+'</table>';
+}
+$("sCnic").oninput=renderVoters;
+
+// Candidates
+function renderCands(){
+ var h='<table class="tbl"><tr><th>ID</th><th>Name</th><th>Party</th><th>Votes</th></tr>';
+ S.cands.forEach(function(c){h+='<tr><td>'+esc(c.id)+'</td><td>'+esc(c.name)+'</td><td>'+esc(c.party)+'</td><td>'+c.votes+'</td></tr>'});
+ $("cList").innerHTML=S.cands.length?h+'</table>':"<p>No candidates yet. Add one below.</p>";
+}
+$("cGo").onclick=function(){
+ var name=$("cName").value.trim(),id=$("cId").value.trim(),party=$("cParty").value.trim(),m=$("cMsg");
+ if(!name||!id||!party)return msg(m,"Fill in the name, ID and party.");
+ if(findC(id)!==-1)return msg(m,"Candidate ID already exists.");
+ S.cands.push({name:name,id:id,party:party,votes:0});save();renderCands();
+ msg(m,"Candidate added successfully.",true);
+ $("cName").value=$("cId").value=$("cParty").value="";
+};
+
+// Results
+function renderResults(){
+ var total=S.cands.reduce(function(a,c){return a+c.votes},0),voted=S.voters.filter(function(v){return v.voted}).length;
+ var h='<div class="stats"><div><b class="cu">'+total+'</b>votes cast</div><div><b class="cu">'+S.voters.length+'</b>registered voters</div><div><b class="cu">'+(S.voters.length?Math.round(voted/S.voters.length*100):0)+'%</b>turnout</div></div>';
+ S.cands.forEach(function(c){
+  var p=total?c.votes/total*100:0;
+  h+='<div class="res"><div class="top"><span>'+esc(c.name)+' <span style="color:var(--mute);font-weight:400">('+esc(c.party)+')</span></span><span>'+c.votes+' &middot; '+p.toFixed(2)+'%</span></div><div class="bar"><i style="width:'+p+'%"></i></div></div>';
+ });
+ if(!total)h+='<p>No votes have been cast yet.</p>';
+ else{
+  var max=Math.max.apply(null,S.cands.map(function(c){return c.votes})),w=S.cands.filter(function(c){return c.votes===max});
+  h+='<div class="winner"><h3>'+(w.length>1?'Tie between ':'Winner: ')+w.map(function(c){return esc(c.name)}).join(' and ')+'</h3><div>'+(w.length>1?'Each has ':'')+max+' votes</div></div>';
+ }
+ $("resBody").innerHTML=h;
+ document.querySelectorAll("#resBody .cu").forEach(function(el){var t=el.textContent,n=parseInt(t,10),suf=t.indexOf("%")>-1?"%":"",st=null;if(!n||matchMedia("(prefers-reduced-motion:reduce)").matches)return;function f(ts){st=st||ts;var p=Math.min((ts-st)/800,1);el.textContent=Math.round(n*p)+suf;if(p<1)requestAnimationFrame(f)}requestAnimationFrame(f)});
+}
+
+$("reset").onclick=function(){
+ if(!confirm("Delete all voters, candidates and votes?"))return;
+ S={voters:[],cands:JSON.parse(JSON.stringify(DEFAULTS))};save();$("ballot").innerHTML="";$("vMsg").innerHTML="";render();
+};
+
+function render(){renderVoters();renderCands();renderResults()}
+render();
+})();
+</script>
+</body>
+</html>
